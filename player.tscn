@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7r0eedr0cghe"]
+[gd_scene load_steps=18 format=3 uid="uid://b7r0eedr0cghe"]
 
 [ext_resource type="Texture2D" uid="uid://dmf285igw4dxc" path="res://Mini Pixel Pack 3/Player ship/Player_ship (16 x 16).png" id="1_3hoao"]
 [ext_resource type="Script" path="res://player.gd" id="2_nyqpu"]
@@ -95,9 +95,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svd5e"]
+size = Vector2(11, 11)
+
 [node name="Ship" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_j5ooi")
 frame = 1
+frame_progress = 0.453044
 script = ExtResource("2_nyqpu")
 
 [node name="Booster" type="AnimatedSprite2D" parent="."]
@@ -105,4 +109,7 @@ position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_0drom")
 animation = &"forward"
 autoplay = "forward"
-frame_progress = 0.872717
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 1.5)
+shape = SubResource("RectangleShape2D_svd5e")
