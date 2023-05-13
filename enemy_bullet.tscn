@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://5voy1sidra3t"]
+
+[ext_resource type="Script" path="res://enemybullet.gd" id="1_0msoy"]
+[ext_resource type="Texture2D" uid="uid://db2j1vrnq8pcm" path="res://Mini Pixel Pack 3/Projectiles/Enemy_projectile (16 x 16).png" id="2_8a3p2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83tgj"]
+
+[node name="EnemyBullet" type="Area2D"]
+script = ExtResource("1_0msoy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8a3p2")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_83tgj")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(0.9, 0.6)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

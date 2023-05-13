@@ -1,5 +1,8 @@
 extends Area2D
 
+
+var bullet_scene = preload("res://enemy_bullet.tscn")
+
 var start_pos = Vector2.ZERO
 var speed: float = 0
 signal died
@@ -11,19 +14,25 @@ func start(pos):
 	speed = 0
 	position = Vector2(pos.x, -pos.y)
 	start_pos = pos
-	# 스크립트 중지, 캐릭터가 대기
 	await get_tree().create_timer(randf_range(0.25, 0.55)).timeout
-	#3이라면 start()가 필요했는데 4는 create_tween()하면 자동적으로 개시되게 된 것은 처음에는 조금 이해하기 힘들었죠.
 	var tween = create_tween().set_trans(Tween.TRANS_BACK)
 	tween.tween_property(self, "position:y", start_pos.y, 1.4)
-	# 애니메이션이 완전히 끝나고 난 후에만 캐릭터가 이동하거나 총을 쏘도록 하기 위함
 	await tween.finished
+	$MoveTimer.wait_time = randf_range(5, 20)
+	$MoveTimer.start()
+	$ShootTimer.wait_time = randf_range(4, 20)
+	$ShootTimer.start()
 
 func _on_timer_timeout():
+	print_debug("move")
 	speed = randf_range(75, 100)
 	
 
 func _on_shoot_timer_timeout():
+	print_debug("shoot")
+	var b = bullet_scene.instantiate()
+	get_tree().root.add_child(b)
+	b.start(position)
 	$ShootTimer.wait_time = randf_range(4, 20)
 	$ShootTimer.start()
 
